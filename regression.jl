@@ -6,9 +6,17 @@ function buildh(t0, t1)
     return x -> t0 + t1 * x
 end
 
+# Compute the cost of the hypothesis
+# This is the value that the gradian descent is trying to minimize.
+function cost(data, t0, t1)
+
+end
+
 function step(data, alpha, t0, t1)
     m = size(data, 1) # Number data points
 
+    # [x, y] * [t1, -1] + t0
+    # = t0 + t1x - y
     inner = data * [t1, -1] + t0 
 
     new1 = t0 - (alpha / m) * sum(inner)
@@ -19,20 +27,11 @@ end
 
 # Gradiant Descent
 function gd(data, t0, t1)
-    alpha = 0.000005
+    alpha = 0.01
 
-    steplength = 1
-    
-    while steplength != 0
-        println(t0)
-        println(t1)
+    for i in 1:1500
         n0, n1 = step(data, alpha, t0, t1)
-        steplength = (n0 - t0) + (n1 - t1)
-        println(n0)
-        println(n1)
-        println(steplength)
-        t0 = n0
-        t1 = n1
+        t0, t1 = n0, n1
     end
     
     return t0, t1
