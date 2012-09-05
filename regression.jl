@@ -9,7 +9,7 @@ end
 # Compute the cost of the hypothesis
 # This is the value that the gradian descent is trying to minimize.
 function cost(data, t0, t1)
-
+    return 0
 end
 
 function step(data, alpha, t0, t1)
@@ -30,8 +30,9 @@ function gd(data, t0, t1)
     alpha = 0.01
 
     for i in 1:1500
-        n0, n1 = step(data, alpha, t0, t1)
-        t0, t1 = n0, n1
+        t0, t1 = step(data, alpha, t0, t1)
+        c = cost(data, t0, t1)
+        print("$c\n")
     end
     
     return t0, t1
@@ -47,3 +48,7 @@ testset = [5 4;
            3 4;
            0 1;
            4 3]
+
+f, t0, t1 = train(testset)
+print("\nh(x) = $t0 + $t1 * x\n")
+
